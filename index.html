@@ -558,6 +558,35 @@
   .modal__confetti{position:absolute;inset:0;overflow:hidden;pointer-events:none;border-radius:22px}
   .modal__confetti i{position:absolute;top:-14px;width:8px;height:8px;border-radius:2px;animation:fall linear forwards}
 
+  /* ---------- matches ---------- */
+  .matches{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  .mcol{
+    background:linear-gradient(180deg, rgba(40,16,54,.6), rgba(18,7,26,.64));
+    border:1px solid rgba(255,255,255,.12);border-radius:20px;
+    padding:18px 18px 10px;backdrop-filter:blur(6px);
+  }
+  .mcol__head{
+    display:flex;align-items:center;gap:11px;color:#fff;
+    font-family:var(--font-brand);font-weight:800;font-size:18px;line-height:1.1;
+    padding:2px 2px 12px;border-bottom:1px solid rgba(255,255,255,.12);margin-bottom:4px;
+  }
+  .mcol__head .fl{font-size:24px}
+  .mcol__head small{display:block;font-family:var(--font-body);font-weight:500;font-size:11.5px;color:rgba(255,255,255,.6)}
+  .match{
+    display:flex;align-items:center;justify-content:space-between;gap:12px;
+    padding:13px 4px;border-bottom:1px solid rgba(255,255,255,.07);
+  }
+  .match:last-child{border-bottom:0}
+  .match__info b{display:block;color:#fff;font-family:var(--font-brand);font-weight:700;font-size:14.5px}
+  .match__info span{color:rgba(255,255,255,.6);font-size:12px}
+  .match__info span i{color:var(--yellow);font-style:normal;font-weight:600}
+  .match__bet{
+    flex:0 0 auto;text-decoration:none;font-family:var(--font-brand);font-weight:700;font-size:12.5px;
+    color:#1c2b00;background:var(--yellow);padding:9px 16px;border-radius:30px;
+    transition:transform .12s, filter .15s;
+  }
+  .match__bet:hover{transform:translateY(-1px);filter:brightness(1.06)}
+
   /* ---------- responsive ---------- */
   @media (max-width:880px){
     .wrap{grid-template-columns:1fr;padding-top:14px}
@@ -567,6 +596,7 @@
     .champ{grid-template-columns:1fr}
     .games{grid-template-columns:repeat(2,1fr)}
     .locs{grid-template-columns:1fr}
+    .matches{grid-template-columns:1fr}
   }
   @media (max-width:460px){
     .grid{grid-template-columns:1fr}
@@ -728,6 +758,50 @@
   </a>
 </section>
 
+<!-- ===== PARTIDOS DESTACADOS ===== -->
+<section class="band" id="partidos">
+  <div class="sec-head reveal">
+    <span class="eyebrow">Apuesta en vivo</span>
+    <h2>Partidos <em>destacados</em></h2>
+    <p>Pronostica los duelos más calientes de la Tri y de Europa. ¡Apuesta con nosotros!</p>
+  </div>
+  <div class="matches">
+
+    <div class="mcol reveal">
+      <div class="mcol__head"><span class="fl">🇪🇨</span> <div>La Tri<small>Amistosos · Fecha FIFA</small></div></div>
+      <div class="match">
+        <div class="match__info"><b>Corea del Sur vs Ecuador</b><span>Amistoso internacional · <i>Jue 24 Sep</i></span></div>
+        <a class="match__bet" data-match="Corea del Sur vs Ecuador" href="#">Apostar</a>
+      </div>
+      <div class="match">
+        <div class="match__info"><b>2º amistoso de la Tri</b><span>Fecha FIFA · <i>Por confirmar</i></span></div>
+        <a class="match__bet" data-match="próximo amistoso de Ecuador" href="#">Apostar</a>
+      </div>
+    </div>
+
+    <div class="mcol reveal">
+      <div class="mcol__head"><span class="fl">🌍</span> <div>Europa<small>Temporada 2026-27</small></div></div>
+      <div class="match">
+        <div class="match__info"><b>Espanyol vs Real Madrid</b><span>LaLiga · <i>Sáb 22 Ago · 14:30</i></span></div>
+        <a class="match__bet" data-match="Espanyol vs Real Madrid (LaLiga)" href="#">Apostar</a>
+      </div>
+      <div class="match">
+        <div class="match__info"><b>Newcastle vs Liverpool</b><span>Premier League · <i>Dom 23 Ago · 10:30</i></span></div>
+        <a class="match__bet" data-match="Newcastle vs Liverpool (Premier League)" href="#">Apostar</a>
+      </div>
+      <div class="match">
+        <div class="match__info"><b>Atlético de Madrid vs Villarreal</b><span>LaLiga · <i>Dom 23 Ago · 10:00</i></span></div>
+        <a class="match__bet" data-match="Atlético de Madrid vs Villarreal (LaLiga)" href="#">Apostar</a>
+      </div>
+      <div class="match">
+        <div class="match__info"><b>Fulham vs Chelsea</b><span>Premier League · <i>Lun 24 Ago · 14:00</i></span></div>
+        <a class="match__bet" data-match="Fulham vs Chelsea (Premier League)" href="#">Apostar</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
 <!-- ===== UBICACIONES ===== -->
 <section class="band" id="ubicaciones">
   <div class="sec-head reveal">
@@ -847,6 +921,11 @@
   // Promo flyer -> WhatsApp
   const flyer = document.getElementById('flyerCta');
   if (flyer) flyer.href = waLink("¡Hola paypro·bet! ⚽ Vi su promo del Mundial y quiero registrarme y jugar ya. ¿Cómo empiezo?");
+
+  // Match "Apostar" buttons -> WhatsApp prefilled per match
+  document.querySelectorAll('.match__bet[data-match]').forEach(a => {
+    a.href = waLink("¡Hola paypro·bet! ⚽ Quiero apostar en " + a.dataset.match + ". ¿Cómo hago mi pronóstico?");
+  });
 
   // ===== Popup fin de semana (Ecuador) a los 25 s =====
   const wkModal = document.getElementById('weekendModal');
